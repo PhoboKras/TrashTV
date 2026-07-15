@@ -1,2 +1,3 @@
 import react from "react";
-import {  }
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
