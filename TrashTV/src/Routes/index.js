@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 
+import StackRoutes from './stackRoutes';
 import Login from '../Pages/Login/Login';
 import Cadastro from '../Pages/Cadastro/Cadastro';
 import Home from '../Pages/Home/Home';
@@ -21,6 +22,15 @@ export default function Routes() {
     <View style={styles.container}>
       <NavigationContainer>
         <Tab.Navigator>
+          <Tab.Screen
+          name='Login'
+          component={StackRoutes}
+          options={{
+            tabBarIcon:({color, size}) =>{
+              return <Feather name='log-in' color={color} size={size}/>
+            }
+          }}
+          />
           <Tab.Screen
           name='Home'
           component={Home}
