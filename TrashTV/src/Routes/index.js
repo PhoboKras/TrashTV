@@ -19,8 +19,55 @@ export default function Routes() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+          name='Home'
+          component={Home}
+          options={{
+            tabBarIcon:({color, size}) =>{
+              return <Feather name='home' color={color} size={size}/>
+            }
+          }}
+          />
+          <Tab.Screen
+          name='Filmes'
+          component={Filmes}
+          options={{
+            tabBarIcon: ({color, size}) =>{
+              return <Feather name='film' color={color} size={size}/>
+            }
+          }}
+          />
+          <Tab.Screen
+          name='Assinaturas'
+          component={Assinaturas}
+          options={{
+            tabBarIcon: ({color, size}) =>{
+              return <Feather name='shopping-bag' color={color} size={size}/>
+            }
+          }}
+          />
+          <Tab.Screen
+          name='Perfil'
+          component={Usuarios}
+          options={{
+            tabBarIcon: ({color, size}) =>{
+              return <Feather name='user' color={color} size={size}/>
+            }
+          }}
+          />
+          <Tab.Screen
+          name='Fale Conosco'
+          component={Desenvolvedores}
+          options={{
+            tabBarIcon: ({color, size}) =>{
+              return <Feather name='phone' color={color} size={size}/>
+            }
+          }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
     </View>
   );
 }
