@@ -15,12 +15,13 @@ import Perfil from '../Pages/Perfil/Perfil';
 import Usuarios from '../Pages/Usuarios/Usuarios'
 import Desenvolvedores from '../Pages/Desenvolvedores/Desenvolvedores'
 
+const Tab = createBottomTabNavigator();
+
 
 export default function Routes() {
 
   return (
     <View style={styles.container}>
-      <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen
           name='Login'
@@ -77,7 +78,6 @@ export default function Routes() {
           }}
           />
         </Tab.Navigator>
-      </NavigationContainer>
     </View>
   );
 }
