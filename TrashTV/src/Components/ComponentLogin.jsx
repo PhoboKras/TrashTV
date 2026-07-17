@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function Login() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
