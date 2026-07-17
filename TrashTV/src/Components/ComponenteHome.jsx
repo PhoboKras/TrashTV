@@ -28,13 +28,31 @@ export default function Home() {
           <Text style={styles.botaoTexto}>Explorar</Text>
         </TouchableOpacity>
       </View>
+ 
+
+      <View style={styles.secao}>
+        <Text style={styles.secaoTitulo}>Filmes em Destaque 🔥</Text>
+        <Text style={styles.secaoTexto}>Confira os melhores filmes do momento!</Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitulo}>Serpentes a Bordo 🐍(2006)</Text>
+        <Text style={styles.cardTexto}>Considerado um dos filmes mais "tão ruim que é bom" da história</Text>
+      </View>
+
+       <View style={styles.card}>
+        <Text style={styles.cardTitulo}>Dominio Alien 👽(1996)</Text>
+        <Text style={styles.cardTexto}>Considerado um dos filmes mais "tão ruim que é bom" da história</Text>
+      </View>
+
+
 
 
 
 
         
 
-
+.
         
 
 
