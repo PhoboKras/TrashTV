@@ -2,7 +2,7 @@ import react from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
 
-export default function Login() {
+export default function ComponentLogin() {
 
 
 
