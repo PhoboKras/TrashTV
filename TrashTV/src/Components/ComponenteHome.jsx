@@ -42,9 +42,17 @@ export default function Home() {
 
        <View style={styles.card}>
         <Text style={styles.cardTitulo}>Dominio Alien 👽(1996)</Text>
-        <Text style={styles.cardTexto}>Considerado um dos filmes mais "tão ruim que é bom" da história</Text>
+        <Text style={styles.cardTexto}>Seis astronautas são infectados por um organismo alienígena.</Text>
       </View>
 
+       <View style={styles.card}>
+        <Text style={styles.cardTitulo}>O Monstro do Pântano (1982)</Text>
+        <Text style={styles.cardTexto}>adaptação do Monstro do Pântano por Craven cavou um lugarzinho de honra entre aqueles filmes tão ruins que são bons, gerando não só uma continuação e duas séries de TV
+        </Text>
+      </View>
+  
+
+  
 
 
 
