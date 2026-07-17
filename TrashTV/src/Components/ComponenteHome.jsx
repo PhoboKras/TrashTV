@@ -1,5 +1,5 @@
 import react from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
         <Text style={styles.bannerTitulo}>
           Os piores filmes, as maiores pérolas!
         </Text>
+        
         <Text style={styles.bannerTexto}>
           Descubra clássicos trash, filmes de terror B, ação exagerada,
           ficção científica duvidosa e muito mais.
@@ -28,6 +29,10 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
+
+
+
+        
 
 
         
