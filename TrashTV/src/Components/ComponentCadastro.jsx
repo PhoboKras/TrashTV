@@ -1,22 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-import Routes from './src/Routes';
-
-export default function ComponentCadastro(){
-    return(
-        <View>
-            
-        </View>
-    )
+export default function Cadastro() {
+  return (
+    <View style={styles.container}>
+      <View>
+      <Text>Tela de Cadastro</Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
