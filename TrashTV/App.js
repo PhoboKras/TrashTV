@@ -3,11 +3,20 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import StackRoutes from './src/Routes/StackRoutes';
+import { UserProvider } from './src/Contexts/UserContext';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackRoutes />
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer>
+        <StackRoutes />
+      </NavigationContainer>
+    </UserProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

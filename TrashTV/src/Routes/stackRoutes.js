@@ -1,9 +1,9 @@
-import React from "react"; // React com "R" maiúsculo
+import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from '../Pages/Login/Login';
-import Cadastro from '../Pages/Cadastro/Cadastro'; 
-import Routes from './index'; 
+import ComponentLogin from '../Components/ComponentLogin';
+import ComponentCadastro from '../Components/ComponentCadastro';
+import Routes from './index';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,19 +12,19 @@ export default function StackRoutes() {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name='Login'
-        component={Login}
-        options={{ headerShown: false }} 
+        component={ComponentLogin}
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
         name='Cadastro'
-        component={Cadastro}
+        component={ComponentCadastro}
         options={{ headerShown: false }}
       />
 
       <Stack.Screen
         name='MainApp'
-        component={Routes} 
+        component={Routes}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
