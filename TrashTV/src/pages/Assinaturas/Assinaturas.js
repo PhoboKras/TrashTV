@@ -1,334 +1,247 @@
 import React, {useCallback, useState} from "react";
-
-import {View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, Modal} from "react-native";
-
+import {View, Text, FlatList, TouchableOpacity, Image, StyleSheet} from "react-native";
 import {useFocusEffect} from "@react-navigation/native";
 
-import {editarAssinatura} from "../../storage/AssinaturaStorage";
-import {excluirAssinatura} from "../../storage/AssinaturaStorage";
-import {buscarAssinatura} from "../../storage/AssinaturaStorage";
-
-import AdicionarAssinatura from "./components/AdicionarAssinatura";
+import {buscarAssinaturas, adicionarAssinatura, excluirAssinatura} from "../../storage/AssinaturaStorage";
 
 
+const PLANOS = [
+    {
+        id: "shudder",
+        nome: "Shudder",
+        preco: "6,99",
+        info: "Streaming dedicado a filmes e séries de terror, com curadoria de fãs e conteúdo exclusivo.",
+        logo: { uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSxiWJmlhyqkNAmhmkh7dfgoFgg-uJ7ditXH4vQ3o57A&s=10" },
+    },
+    {
+        id: "screambox",
+        nome: "Screambox",
+        preco: "6,99",
+        info: "Mais de 1000 filmes de terror: clássicos, slashers, culto e originais exclusivos.",
+        logo: { uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxD10Tv0jPm6peqvZhm764kxUZ5T89NYA8x9ZXOQojpw&s=10" },
+    },
+    {
+        id: "shout",
+        nome: "Shout! TV",
+        preco: "3,99",
+        info: "Filmes e séries cult e clássicas, com canais ao vivo 24/7 sem anúncios.",
+        logo: { uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnjpWesXC02MDpUR6iDKhWKiJezqsyyd7MhK16rDxmWA&s=10" },
+    },
+];
 
-export default function Assinaturas(){
+export default function Assinaturas() {
 
-    const [assinaturas,setAssinaturas] = useState([]);
+    const [assinados, setAssinados] = useState([]);
+    const [verMinhasAssinaturas, setVerMinhasAssinaturas] = useState(false);
 
-    const [modalAdicionar,setModalAdicionar] = useState(false);
-
-
-
-    async function carregarAssinaturas(){
-
+    async function carregarAssinaturas() {
         const dados = await buscarAssinaturas();
-
-        setAssinaturas(dados);
-
+        setAssinados(dados.map(item => item.id));
     }
-
-
 
     useFocusEffect(
-
-        useCallback(()=>{
-
+        useCallback(() => {
             carregarAssinaturas();
-
-        },[])
-
+        }, [])
     );
 
-
-    function confirmarExclusao(id){
-
-
-        Alert.alert(
-
-            "Excluir assinatura",
-
-            "Deseja remover essa assinatura?",
-
-            [
-
-                {
-                    text:"Cancelar",
-                    style:"cancel"
-                },
-
-                {
-
-                    text:"Excluir",
-
-                    style:"destructive",
-
-                    onPress: async()=>{
-
-                        await excluirAssinatura(id);
-
-                        carregarAssinaturas();
-
-                    }
-
-                }
-
-            ]
-
-        );
-
+    async function handleAssinar(plano) {
+        await adicionarAssinatura({
+            id: plano.id,
+            nome: plano.nome,
+            valor: plano.preco,
+            status: "Ativa",
+        });
+        carregarAssinaturas();
     }
 
+    async function handleCancelar(id) {
+        await excluirAssinatura(id);
+        carregarAssinaturas();
+    }
 
-    function renderItem({item}){
+    const listaExibida = verMinhasAssinaturas
+        ? PLANOS.filter(plano => assinados.includes(plano.id))
+        : PLANOS;
 
-        return(
+    function renderItem({item}) {
+        const estaAssinado = assinados.includes(item.id);
 
+        return (
             <View style={styles.card}>
+                <Image source={item.logo} style={styles.logo} resizeMode="contain" />
 
+                <View style={styles.info}>
+                    <Text style={styles.nome}>{item.nome}</Text>
+                    <Text style={styles.descricao}>{item.info}</Text>
+                    <Text style={styles.preco}>R$ {item.preco}/mês</Text>
 
-                <View>
-
-
-                    <Text style={styles.logo}>
-                        TRASH TV
-                    </Text>
-
-
-                    <Text style={styles.nome}>
-                        {item.nome}
-                    </Text>
-
-
-                    <Text style={styles.valor}>
-                        R$ {item.valor}/mês
-                    </Text>
-
-
-                    <Text style={styles.texto}>
-                        Cobrança dia {item.vencimento}
-                    </Text>
-
-
-                    <Text style={styles.status}>
-                        ● {item.status}
-                    </Text>
-
-
+                    {estaAssinado && (
+                        <Text style={styles.status}>● Assinatura ativa</Text>
+                    )}
                 </View>
 
-
-
                 <TouchableOpacity
-
-                    style={styles.excluir}
-
-                    onPress={()=>
-                        confirmarExclusao(item.id)
+                    style={[
+                        styles.botao,
+                        estaAssinado ? styles.botaoCancelar : styles.botaoAssinar,
+                    ]}
+                    onPress={() =>
+                        estaAssinado ? handleCancelar(item.id) : handleAssinar(item)
                     }
-
                 >
-
                     <Text style={styles.textoBotao}>
-                        X
+                        {estaAssinado ? "Cancelar" : "Assinar"}
                     </Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 
+    return (
+        <View style={styles.container}>
+            <Text style={styles.titulo}>Assinaturas</Text>
+            <Text style={styles.subtitulo}>
+                {verMinhasAssinaturas
+                    ? "Suas assinaturas ativas"
+                    : "Escolha seus streamings de terror"}
+            </Text>
 
+            <View style={styles.tabs}>
+                <TouchableOpacity
+                    style={[styles.tabBotao, !verMinhasAssinaturas && styles.tabAtiva]}
+                    onPress={() => setVerMinhasAssinaturas(false)}
+                >
+                    <Text style={[styles.tabTexto, !verMinhasAssinaturas && styles.tabTextoAtivo]}>
+                        Planos
+                    </Text>
                 </TouchableOpacity>
 
-
-
+                <TouchableOpacity
+                    style={[styles.tabBotao, verMinhasAssinaturas && styles.tabAtiva]}
+                    onPress={() => setVerMinhasAssinaturas(true)}
+                >
+                    <Text style={[styles.tabTexto, verMinhasAssinaturas && styles.tabTextoAtivo]}>
+                        Minhas Assinaturas
+                    </Text>
+                </TouchableOpacity>
             </View>
 
-        )
-
-    }
-
-
-    return(
-
-        <View style={styles.container}>
-
-            <Text style={styles.titulo}>
-                Assinaturas
-            </Text>
-
-            <Text style={styles.subtitulo}>
-                Gerencie sua Trash TV
-            </Text>
-
-
-            <TouchableOpacity
-
-                style={styles.adicionar}
-
-                onPress={()=>setModalAdicionar(true)}
-
-            >
-
-                <Text style={styles.textoAdicionar}>
-                    + Nova Assinatura
-                </Text>
-
-            </TouchableOpacity>
-
-
-
-
-
             <FlatList
-
-                data={assinaturas}
-
-                keyExtractor={
-                    item=>item.id
-                }
-
+                data={listaExibida}
+                keyExtractor={item => item.id}
                 renderItem={renderItem}
-
-            />
-
-
-
-
-
-
-            <Modal
-
-                visible={modalAdicionar}
-
-                animationType="slide"
-
-                onRequestClose={()=>
-                    setModalAdicionar(false)
+                showsVerticalScrollIndicator={false}
+                ListEmptyComponent={
+                    verMinhasAssinaturas ? (
+                        <Text style={styles.vazio}>
+                            Você ainda não assinou nenhum plano
+                        </Text>
+                    ) : null
                 }
-
-            >
-
-
-                <AdicionarAssinatura
-
-                    fecharModal={()=>{
-
-                        setModalAdicionar(false);
-
-                        carregarAssinaturas();
-
-                    }}
-
-                />
-
-
-            </Modal>
-
-
-
-
+            />
         </View>
-
-    )
-
+    );
 }
 
-
-
-
-
 const styles = StyleSheet.create({
-
-
-    container:{
-        flex:1,
-        backgroundColor:"#101010",
-        padding:20
+    container: {
+        flex: 1,
+        backgroundColor: "#101010",
+        padding: 20
     },
-
-
-    titulo:{
-        color:"#FFF",
-        fontSize:28,
-        fontWeight:"bold"
+    titulo: {
+        color: "#FFF",
+        fontSize: 28,
+        fontWeight: "bold"
     },
-
-
-    subtitulo:{
-        color:"#888",
-        marginTop:5,
-        marginBottom:20
+    subtitulo: {
+        color: "#888",
+        marginTop: 5,
+        marginBottom: 16
     },
-
-
-    adicionar:{
-        backgroundColor:"#FF0055",
-        height:50,
-        borderRadius:12,
-        justifyContent:"center",
-        alignItems:"center",
-        marginBottom:20
+    tabs: {
+        flexDirection: "row",
+        backgroundColor: "#1E1E1E",
+        borderRadius: 12,
+        padding: 4,
+        marginBottom: 20,
     },
-
-
-    textoAdicionar:{
-        color:"#FFF",
-        fontWeight:"bold",
-        fontSize:16
+    tabBotao: {
+        flex: 1,
+        paddingVertical: 10,
+        borderRadius: 10,
+        alignItems: "center",
     },
-
-
-    card:{
-        backgroundColor:"#1E1E1E",
-        borderRadius:18,
-        padding:18,
-        marginBottom:15,
-        flexDirection:"row",
-        justifyContent:"space-between"
+    tabAtiva: {
+        backgroundColor: "#FF0055",
     },
-
-
-    logo:{
-        color:"#FF0055",
-        fontWeight:"bold"
+    tabTexto: {
+        color: "#AAA",
+        fontWeight: "bold",
+        fontSize: 14,
     },
-
-
-    nome:{
-        color:"#FFF",
-        fontSize:22,
-        fontWeight:"bold"
+    tabTextoAtivo: {
+        color: "#FFF",
     },
-
-
-    valor:{
-        color:"#FFF",
-        marginTop:5
+    card: {
+        backgroundColor: "#1E1E1E",
+        borderRadius: 18,
+        padding: 18,
+        marginBottom: 15,
     },
-
-
-    texto:{
-        color:"#AAA"
+    logo: {
+        width: 80,
+        height: 80,
+        borderRadius: 12,
+        marginBottom: 12,
+        backgroundColor: "#000",
     },
-
-
-    status:{
-        color:"#4CAF50",
-        marginTop:8
+    info: {
+        marginBottom: 14,
     },
-
-
-    excluir:{
-        backgroundColor:"#FF0055",
-        width:35,
-        height:35,
-        borderRadius:20,
-        justifyContent:"center",
-        alignItems:"center"
+    nome: {
+        color: "#FFF",
+        fontSize: 22,
+        fontWeight: "bold"
     },
-
-
-    textoBotao:{
-        color:"#FFF",
-        fontWeight:"bold"
-    }
-
-
+    descricao: {
+        color: "#AAA",
+        marginTop: 6,
+        lineHeight: 20,
+    },
+    preco: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "bold",
+        marginTop: 10,
+    },
+    status: {
+        color: "#4CAF50",
+        marginTop: 8
+    },
+    botao: {
+        height: 46,
+        borderRadius: 12,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    botaoAssinar: {
+        backgroundColor: "#FF0055",
+    },
+    botaoCancelar: {
+        backgroundColor: "#333",
+        borderWidth: 1,
+        borderColor: "#FF0055",
+    },
+    textoBotao: {
+        color: "#FFF",
+        fontWeight: "bold",
+        fontSize: 16
+    },
+    vazio: {
+        color: "#666",
+        textAlign: "center",
+        marginTop: 40
+    },
 });
