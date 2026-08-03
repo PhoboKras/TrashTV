@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Perfil() {
+export default function FaleConosco() {
   return (
     <View>
-      <Text>Perfil</Text>
+      <Text>Fale Conosco</Text>
     </View>
   );
 }
