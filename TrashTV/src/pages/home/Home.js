@@ -3,7 +3,6 @@ import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal, Lin
 
 import Logo from "../../../assets/ChatGPT Image 13 de jul. de 2026, 19_24_12.png";
 
-
 const filmeDestaque = {
   titulo: "O Melhor do Pior Cinema",
   trailerUrl: "",
@@ -77,7 +76,6 @@ const filmesTerrorTrash = [
     id: 4,
     titulo: "Python (2000)",
     uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJLN0OqIzVo69bisgICwA1zfVTPJG7qU1kGOsBaA-fig&s=10",
-    // não achei trailer isolado; este é o filme completo dublado
     trailerUrl: "https://www.youtube.com/watch?v=9j2nMlMJJQ0",
   },
   {
@@ -138,34 +136,44 @@ export default function Home() {
         <Text style={styles.saudacao}>Olá, sobrevivente...</Text>
       </View>
 
+      {/* Banner Principal Reformulado */}
       <View style={styles.banner}>
-        <Text style={styles.bannerCategoria}>
-          Terror • Ficção B • Comédia Trash
-        </Text>
+        <Image
+          source={{
+            uri: "https://www.kapowtoys.co.uk/wp-content/uploads/2026/04/NECA-Terrifier-2-Ultimate-Art-the-Clown-Blood-Splattered-Action-Figure.-2-324x432.webp",
+          }}
+          style={styles.bannerImagem}
+          resizeMode="cover"
+        />
 
-        <Text style={styles.bannerTitulo}>
-          O MELHOR DO PIOR CINEMA
-        </Text>
+        <View style={styles.bannerConteudo}>
+          <Text style={styles.bannerCategoria}>
+            Terror • Ficção B • Comédia Trash
+          </Text>
 
-        <Text style={styles.bannerDescricao}>
-          Descubra filmes tão ruins que ficam incríveis.
-          Dos clássicos cult aos maiores desastres do cinema.
-        </Text>
+          <Text style={styles.bannerTitulo}>
+            O MELHOR DO PIOR CINEMA
+          </Text>
 
-        <View style={styles.botoes}>
-          <TouchableOpacity
-            style={styles.botaoPrincipal}
-            onPress={() => abrirTrailer(filmeDestaque)}
-          >
-            <Text style={styles.textoPrincipal}>▶ Assistir</Text>
-          </TouchableOpacity>
+          <Text style={styles.bannerDescricao}>
+            Descubra filmes tão ruins que ficam incríveis. Dos clássicos cult aos maiores desastres do cinema.
+          </Text>
 
-          <TouchableOpacity
-            style={styles.botaoSecundario}
-            onPress={() => setMostrarInfo(true)}
-          >
-            <Text style={styles.textoSecundario}>ℹ Mais informações</Text>
-          </TouchableOpacity>
+          <View style={styles.botoes}>
+            <TouchableOpacity
+              style={styles.botaoPrincipal}
+              onPress={() => abrirTrailer(filmeDestaque)}
+            >
+              <Text style={styles.textoPrincipal}>▶ Assistir</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.botaoSecundario}
+              onPress={() => setMostrarInfo(true)}
+            >
+              <Text style={styles.textoSecundario}>ℹ Info</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 
@@ -194,7 +202,6 @@ export default function Home() {
           </View>
         </View>
       </Modal>
-
 
       <Text style={styles.tituloCategoria}>Em Alta</Text>
 
@@ -309,32 +316,48 @@ const styles = StyleSheet.create({
     textShadowRadius: 6,
   },
 
+  /* Banner modificado */
   banner: {
     backgroundColor: "#181818",
     marginHorizontal: 18,
     borderRadius: 18,
-    padding: 22,
+    padding: 14,
     marginBottom: 30,
+    flexDirection: "row", // Coloca a imagem e o conteúdo lado a lado
+    alignItems: "center",
+    overflow: "hidden",
+  },
+
+  bannerImagem: {
+    width: 110,
+    height: 160,
+    borderRadius: 12,
+    marginRight: 14,
+  },
+
+  bannerConteudo: {
+    flex: 1, // Faz a área de textos ocupar todo o espaço restante do banner
   },
 
   bannerCategoria: {
     color: "#AAAAAA",
-    fontSize: 14,
-    marginBottom: 8,
+    fontSize: 11,
+    fontWeight: "600",
+    marginBottom: 4,
   },
 
   bannerTitulo: {
     color: "#FFFFFF",
-    fontSize: 34,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 12,
+    marginBottom: 6,
   },
 
   bannerDescricao: {
     color: "#CFCFCF",
-    fontSize: 15,
-    lineHeight: 22,
-    marginBottom: 22,
+    fontSize: 12,
+    lineHeight: 16,
+    marginBottom: 12,
   },
 
   botoes: {
@@ -345,29 +368,30 @@ const styles = StyleSheet.create({
   botaoPrincipal: {
     backgroundColor: "#E50914",
     flex: 1,
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: 8,
+    borderRadius: 6,
     alignItems: "center",
-    marginRight: 10,
+    marginRight: 6,
   },
 
   textoPrincipal: {
     color: "#FFF",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 13,
   },
 
   botaoSecundario: {
     backgroundColor: "#333333",
     flex: 1,
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: 8,
+    borderRadius: 6,
     alignItems: "center",
   },
 
   textoSecundario: {
     color: "#FFF",
     fontWeight: "600",
+    fontSize: 13,
   },
 
   modalFundo: {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
+import Logo from "../../../assets/ChatGPT Image 13 de jul. de 2026, 19_24_12.png";
+
 const devs = [
   {
     nome: "Ricardo",
@@ -24,7 +26,7 @@ const devs = [
       "Transforma qualquer ideia estranha em algo funcional. A pessoa responsável por lembrar que o projeto precisa continuar fazendo sentido.",
   },
   {
-    nome: "João Vitor",
+    nome: "Victor",
     foto: "https://link-da-foto.com/joao.jpg",
     cargo: "Mestre das linhas de código",
     descricao:
@@ -42,8 +44,10 @@ export default function Desenvolvedores() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.logo}>🎬🗑️ Trash TV</Text>
+        <Image source={Logo} style={styles.logo} />
+      </View>
 
+      <View>
         <Text style={styles.title}>Quem fez essa obra duvidosa?</Text>
 
         <Text style={styles.subtitle}>
@@ -104,16 +108,17 @@ const styles = StyleSheet.create({
 
   header: {
     paddingTop: 60,
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
   },
 
   logo: {
-    color: "#E50914",
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
   },
 
   title: {
