@@ -4,7 +4,7 @@ import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal, Lin
 import Logo from "../../../assets/ChatGPT Image 13 de jul. de 2026, 19_24_12.png";
 
 const filmeDestaque = {
-  titulo: "O Melhor do Pior Cinema",
+  titulo: "Band Cine Trash",
   trailerUrl: "",
 };
 
