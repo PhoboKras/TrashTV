@@ -3,31 +3,32 @@ import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
 import Logo from "../../../assets/ChatGPT Image 13 de jul. de 2026, 19_24_12.png";
 
+
 const devs = [
   {
     nome: "Ricardo",
-    foto: "https://link-da-foto.com/ricardo.jpg",
+    foto: require("../../../assets/ricardo.jpeg"),
     cargo: "O maior farmador de aura 67",
     descricao:
       "Arquiteto supremo do Trash TV. Quando não está codando, está farmando aura em silêncio e aparecendo com uma solução que ninguém esperava.",
   },
   {
     nome: "Juan",
-    foto: "https://link-da-foto.com/juan.jpg",
+    foto: require("../../../assets/juan.jpeg"),
     cargo: "Cria de Alphaville",
     descricao:
       "Especialista em ideias diferenciadas e residente oficial do luxo duvidoso. Dizem que ele nasceu com Wi-Fi 5G e uma opinião sobre tudo.",
   },
   {
     nome: "Agnes",
-    foto: "https://link-da-foto.com/agnes.jpg",
-    cargo: "Guardião das ideias aleatórias",
+    foto: require("../../../assets/agnes.jpeg"),
+    cargo: "Guardiã das ideias aleatórias",
     descricao:
       "Transforma qualquer ideia estranha em algo funcional. A pessoa responsável por lembrar que o projeto precisa continuar fazendo sentido.",
   },
   {
     nome: "Victor",
-    foto: "https://link-da-foto.com/joao.jpg",
+    foto: require("../../../assets/victor.jpeg"),
     cargo: "Mestre das linhas de código",
     descricao:
       "Vulgo 'Espanca Git'. Seu poder especial é abrir o código antigo e dizer: 'dá para melhorar isso'.",
@@ -47,7 +48,7 @@ export default function Desenvolvedores() {
         <Image source={Logo} style={styles.logo} />
       </View>
 
-      <View>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>Quem fez essa obra duvidosa?</Text>
 
         <Text style={styles.subtitle}>
@@ -68,11 +69,19 @@ export default function Desenvolvedores() {
                   <Text style={styles.avatarFallbackTexto}>{inicial}</Text>
                 </View>
               ) : (
-                <Image
-                  source={{ uri: dev.foto }}
-                  style={styles.avatar}
-                  onError={() => marcarErro(index)}
-                />
+               
+                <View style={styles.avatarContainer}>
+                  <Image
+                    source={dev.foto}
+                    
+                    style={[
+                      styles.avatar,
+                      dev.nome === "Agnes" && styles.avatarAgnes,
+                    ]}
+                    onError={() => marcarErro(index)}
+                    resizeMode="cover"
+                  />
+                </View>
               )}
 
               <View style={styles.info}>
@@ -115,10 +124,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
- logo: {
+  logo: {
     width: 44,
     height: 44,
     borderRadius: 22,
+  },
+
+  titleContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
 
   title: {
@@ -141,28 +155,43 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    flexDirection: "row",
+    flexDirection: "column",
+    alignItems: "center",
     backgroundColor: "#181818",
     borderRadius: 14,
-    padding: 16,
+    padding: 20,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: "#2F2F2F",
   },
 
-  avatar: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    marginRight: 16,
+  
+  avatarContainer: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 16,
     backgroundColor: "#242424",
+    overflow: "hidden",
+    alignItems: "center", 
+    justifyContent: "center", 
+  },
+
+  avatar: {
+    width: "100%",
+    height: "100%",
+  },
+
+  avatarAgnes: {
+    transform: [{ translateY: 20 }], 
+    height: "130%",
   },
 
   avatarFallback: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    marginRight: 16,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 16,
     backgroundColor: "#E50914",
     alignItems: "center",
     justifyContent: "center",
@@ -170,42 +199,45 @@ const styles = StyleSheet.create({
 
   avatarFallbackTexto: {
     color: "#FFF",
-    fontSize: 28,
+    fontSize: 44,
     fontWeight: "900",
   },
 
   info: {
-    flex: 1,
+    alignItems: "center",
   },
 
   name: {
     color: "#FFF",
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 6,
+    textAlign: "center",
   },
 
   cargoPill: {
-    alignSelf: "flex-start",
+    alignSelf: "center",
     backgroundColor: "rgba(229,9,20,0.15)",
     borderWidth: 1,
     borderColor: "#E50914",
     borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    marginBottom: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    marginBottom: 12,
   },
 
   role: {
     color: "#E50914",
     fontSize: 12,
     fontWeight: "700",
+    textAlign: "center",
   },
 
   description: {
     color: "#CFCFCF",
     fontSize: 13,
     lineHeight: 19,
+    textAlign: "center",
   },
 
   rodape: {

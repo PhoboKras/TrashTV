@@ -51,6 +51,24 @@ const filmesEmAlta = [
     uri: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Lavalantula.jpg/250px-Lavalantula.jpg",
     trailerUrl: "https://www.youtube.com/watch?v=sdYcP0T95EI",
   },
+   {
+    id: 6,
+    titulo: "Acampamento Sinistro",
+    uri: "https://m.media-amazon.com/images/M/MV5BN2IyOWU4MGUtZjEyNC00ODNjLTg3OGMtZmNlM2ZlZDYzOWJjXkEyXkFqcGc@._V1_.jpg",
+    trailerUrl: "https://www.youtube.com/watch?v=vImv6yxkxJE",
+   },
+   {
+    id: 7,
+    titulo: "O Soro do Mal (1988)",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS88L29obpDd1ARMBwUjkrYF2NJWj2fhFwymTIjWVukA&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=AUno-Hzk3EE",
+   },
+   {
+    id: 8,
+    titulo: "A Visão do Terror",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7qISPqzIiyu3tbhvLUP1tcMTtSN5gXoKFYGM5xrl4nA&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=nKoFRD0n4tQ",
+   },
 ];
 
 const filmesTerrorTrash = [
@@ -83,6 +101,24 @@ const filmesTerrorTrash = [
     titulo: "Evil Dead (2013)",
     uri: "https://m.media-amazon.com/images/S/pv-target-images/b3ddd941682f0634a426808127331eb92dbd577df8bcdf72b346dbd0ac6216f0.jpg",
     trailerUrl: "https://www.youtube.com/watch?v=G2vpYyp55MA",
+  },
+  {
+    id: 6,
+    titulo: "Baile de Formatura (1980)",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz5ICZIzXO27KlrY7GoAoV_7dTIBRa33OExGOipzK9hw&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=gXE65GDGjWM"
+  },
+  {
+    id: 7,
+    titulo: "A Semente da Maldição",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUQOIp-lePdKxDCjsQV0Ymhpz38IrG45GxuG5bQlKxKA&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=UdOKtq2bquc&rco=1",
+  },
+  {
+    id: 8,
+    titulo: "Robôs Assassinos (1986)",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVyD1mCmakdltwgANdR4U8-tjrn8aF7-xULZEuU0NbBA&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=a5UzZRn8MAs"
   },
 ];
 
@@ -117,6 +153,24 @@ const filmesClassicosCult = [
     uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz8b33tPdk6hixPzIDiLDsT4KcjyxVV83YloychIhvYg&s=10",
     trailerUrl: "https://www.youtube.com/watch?v=WfAHOOl3brs",
   },
+  {
+    id: 6,
+    titulo: "Ghoulies",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIDaJ_b45Q3kro3UeHopl1p7BnEyGYVTP0VWdJpo0SQg&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=HysJUwWWAEI"
+  },
+  {
+    id: 7,
+    titulo: "A Hora das Criaturas",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRWAteCmjHCLutTDi3t-b9jwpiZkbXIXEnAZFb1FqXMw&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=hiLtxJ9hvpg",
+  },
+  {
+    id: 8,
+    titulo: "A Casa de Cera",
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEA7D8nF0SbOnARw5It5FILHvoNy5vpaFrPYj2n5o4_A&s=10",
+    trailerUrl: "https://www.youtube.com/watch?v=iRzDyUQi2Qk",
+  },
 ];
 
 export default function Home() {
@@ -136,7 +190,6 @@ export default function Home() {
         <Text style={styles.saudacao}>Olá, sobrevivente...</Text>
       </View>
 
-      {/* Banner Principal Reformulado */}
       <View style={styles.banner}>
         <Image
           source={{
@@ -177,7 +230,7 @@ export default function Home() {
         </View>
       </View>
 
-      {/* Modal de informações */}
+      
       <Modal
         visible={mostrarInfo}
         transparent
@@ -323,7 +376,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     padding: 14,
     marginBottom: 30,
-    flexDirection: "row", // Coloca a imagem e o conteúdo lado a lado
+    flexDirection: "row", 
     alignItems: "center",
     overflow: "hidden",
   },
@@ -336,7 +389,7 @@ const styles = StyleSheet.create({
   },
 
   bannerConteudo: {
-    flex: 1, // Faz a área de textos ocupar todo o espaço restante do banner
+    flex: 1,
   },
 
   bannerCategoria: {
